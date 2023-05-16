@@ -4,12 +4,14 @@ namespace StudienimportService;
 
 public class Worker : BackgroundService
 {
-    private readonly IConfiguration _configuration;
     private readonly ILogger<Worker> _logger;
-
-    public Worker(ILogger<Worker> logger, IConfiguration configuration)
+    private readonly IHostApplicationLifetime _lifetime;
+    private readonly IConfiguration _configuration;
+    
+    public Worker(ILogger<Worker> logger, IHostApplicationLifetime lifetime, IConfiguration configuration)
     {
         _logger = logger;
+        _lifetime = lifetime;
         _configuration = configuration;
     }
 
@@ -19,14 +21,26 @@ public class Worker : BackgroundService
         {
             var requestUrl = _configuration.GetSection("App")["RequestUrl"];
             var postUrl = _configuration.GetSection("App")["PostUrl"];
-
-            if (null != requestUrl && null != postUrl)
+            if (null == requestUrl || null == postUrl)
             {
-                var studien = await new StudienRequestService(_logger, new Uri(requestUrl)).RequestStudien();
-                new StudienUploadService(_logger, new Uri(postUrl)).upload(studien);
+                _logger.LogError("Required URLs not set. Exit.");
+                _lifetime.StopApplication();
+                break;
             }
 
-            await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
+            var taskDelay = _configuration.GetSection("App")["TaskDelay"];
+            int delay;
+            if (null == taskDelay || ! Int32.TryParse(taskDelay, out delay))
+            {
+                _logger.LogWarning("No TaskDelay given, using 7 days as default value.");
+                delay = 7;
+            }
+            
+            var studien = await new StudienRequestService(_logger, new Uri(requestUrl)).RequestStudien();
+            new StudienUploadService(_logger, new Uri(postUrl)).upload(studien);
+            
+            _logger.LogInformation("Waiting");
+            await Task.Delay(TimeSpan.FromDays(delay), stoppingToken);
         }
     }
 }

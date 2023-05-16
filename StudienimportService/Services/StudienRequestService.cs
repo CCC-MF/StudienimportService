@@ -24,7 +24,7 @@ public class StudienRequestService
 
         if (response.StatusCode == HttpStatusCode.OK)
             return studienFileConverter.Convert(response.Content.ReadAsStream());
-        _logger.LogError("Error: HTTP-Response {}", response.StatusCode);
+        _logger.LogCritical("Error: HTTP-Response {}", response.StatusCode);
         return new List<Studie>();
     }
 }

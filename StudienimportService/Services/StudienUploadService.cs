@@ -29,7 +29,7 @@ public class StudienUploadService
         var response = await _httpClient.PostAsync(_uri, content);
 
         if (response.StatusCode != HttpStatusCode.OK)
-            _logger.LogError("Cannot update studies in Onkostar: {}", await response.Content.ReadAsStringAsync());
+            _logger.LogCritical("Cannot update studies in Onkostar: {}", await response.Content.ReadAsStringAsync());
         else
             _logger.LogInformation("Studies updated in Onkostar: {}", await response.Content.ReadAsStringAsync());
 

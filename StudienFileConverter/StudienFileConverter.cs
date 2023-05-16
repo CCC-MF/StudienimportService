@@ -40,7 +40,7 @@ public class StudienFileConverter
         }
         catch (Exception e)
         {
-            _logger.LogError("Error: {}", e);
+            _logger.LogCritical("Error: {}", e);
         }
 
         return new List<Studie>();

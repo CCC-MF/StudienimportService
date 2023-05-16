@@ -23,7 +23,7 @@ public class Worker : BackgroundService
             var postUrl = _configuration.GetSection("App")["PostUrl"];
             if (null == requestUrl || null == postUrl)
             {
-                _logger.LogError("Required URLs not set. Exit.");
+                _logger.LogCritical("Required URLs not set. Exit.");
                 _lifetime.StopApplication();
                 break;
             }
@@ -39,7 +39,6 @@ public class Worker : BackgroundService
             var studien = await new StudienRequestService(_logger, new Uri(requestUrl)).RequestStudien();
             new StudienUploadService(_logger, new Uri(postUrl)).upload(studien);
             
-            _logger.LogInformation("Waiting");
             await Task.Delay(TimeSpan.FromDays(delay), stoppingToken);
         }
     }

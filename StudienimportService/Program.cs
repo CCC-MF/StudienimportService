@@ -8,21 +8,22 @@ if (args is { Length: 1 })
     string executablePath =
         Path.Combine(AppContext.BaseDirectory, "StudienimportService.exe");
 
-    if (args[0] is "/Install")
+    switch (args[0])
     {
-        await Cli.Wrap("sc")
-            .WithArguments(new[] { "create", serviceName, $"binPath={executablePath}", "start=delayed-auto" })
-            .ExecuteAsync();
-    }
-    else if (args[0] is "/Uninstall")
-    {
-        await Cli.Wrap("sc")
-            .WithArguments(new[] { "stop", serviceName })
-            .ExecuteAsync();
+        case "/Install":
+            await Cli.Wrap("sc")
+                .WithArguments(new[] { "create", serviceName, $"binPath={executablePath}", "start=delayed-auto" })
+                .ExecuteAsync();
+            break;
+        case "/Uninstall":
+            await Cli.Wrap("sc")
+                .WithArguments(new[] { "stop", serviceName })
+                .ExecuteAsync();
 
-        await Cli.Wrap("sc")
-            .WithArguments(new[] { "delete", serviceName })
-            .ExecuteAsync();
+            await Cli.Wrap("sc")
+                .WithArguments(new[] { "delete", serviceName })
+                .ExecuteAsync();
+            break;
     }
 
     return;

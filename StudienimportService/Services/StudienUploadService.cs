@@ -16,7 +16,7 @@ public class StudienUploadService
         _logger = logger;
     }
 
-    public async void upload(List<Studie> studien)
+    public async void Upload(List<Studie> studien)
     {
         var studienFileConverter = new StudienFileConverter.StudienFileConverter(_logger);
         var stream = studienFileConverter.Convert(studien);

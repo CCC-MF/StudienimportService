@@ -37,7 +37,7 @@ public class Worker : BackgroundService
             }
             
             var studien = await new StudienRequestService(_logger, new Uri(requestUrl)).RequestStudien();
-            new StudienUploadService(_logger, new Uri(postUrl)).upload(studien);
+            new StudienUploadService(_logger, new Uri(postUrl)).Upload(studien);
             
             await Task.Delay(TimeSpan.FromDays(delay), stoppingToken);
         }

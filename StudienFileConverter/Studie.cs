@@ -90,9 +90,11 @@ public class Studie
         var row = new Row();
         foreach (var header in headers)
         {
-            var cell = new Cell();
-            cell.DataType = CellValues.String;
-            cell.CellValue = new CellValue(header);
+            var cell = new Cell
+            {
+                DataType = CellValues.String,
+                CellValue = new CellValue(header)
+            };
             row.AppendChild(cell);
         }
 
@@ -141,8 +143,10 @@ public class Studie
 
     private Cell DateCell(DateOnly? value)
     {
-        var cell = new Cell();
-        cell.DataType = CellValues.String;
+        var cell = new Cell
+        {
+            DataType = CellValues.String
+        };
         if (value.HasValue)
             cell.CellValue = new CellValue(value.Value.ToString("yyyy-MM-dd", DateTimeFormatInfo.InvariantInfo));
         return cell;

@@ -125,7 +125,7 @@ public class Studie
         row.AppendChild(StringCell(StudienassistentTelefon));
         row.AppendChild(StringCell(StudienassistentNotfallNr));
         row.AppendChild(StringCell(Studientyp));
-        row.AppendChild(StringCell(AmgPhase));
+        row.AppendChild(StringCell(AmgPhase.Equals("0") ? "" : AmgPhase));
         row.AppendChild(StringCell(ProtokollNr));
         row.AppendChild(StringCell(Studienausrichtung));
         row.AppendChild(StringCell(Studienart));

@@ -8,15 +8,8 @@ using Microsoft.Extensions.Logging;
 
 namespace StudienFileConverter;
 
-public class StudienFileConverter
+public class StudienFileConverter(ILogger logger)
 {
-    private readonly ILogger _logger;
-
-    public StudienFileConverter(ILogger logger)
-    {
-        _logger = logger;
-    }
-
     /// <summary>
     ///     Converts input stream of CSV file to list of studies
     /// </summary>
@@ -40,7 +33,7 @@ public class StudienFileConverter
         }
         catch (Exception e)
         {
-            _logger.LogCritical("Error: {}", e);
+            logger.LogCritical("Error: {}", e);
         }
 
         return new List<Studie>();

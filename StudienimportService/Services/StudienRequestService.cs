@@ -3,28 +3,19 @@ using StudienFileConverter;
 
 namespace StudienimportService.Services;
 
-public class StudienRequestService
+public class StudienRequestService(ILogger logger, Uri uri)
 {
-    private readonly HttpClient _httpClient;
-    private readonly ILogger _logger;
-    private readonly Uri _uri;
-
-    public StudienRequestService(ILogger logger, Uri uri)
-    {
-        _httpClient = new HttpClient();
-        _uri = uri;
-        _logger = logger;
-    }
+    private readonly HttpClient _httpClient = new();
 
     public async Task<List<Studie>> RequestStudien()
     {
-        var studienFileConverter = new StudienFileConverter.StudienFileConverter(_logger);
+        var studienFileConverter = new StudienFileConverter.StudienFileConverter(logger);
 
-        var response = await _httpClient.GetAsync(_uri);
+        var response = await _httpClient.GetAsync(uri);
 
         if (response.StatusCode == HttpStatusCode.OK)
-            return studienFileConverter.Convert(response.Content.ReadAsStream());
-        _logger.LogCritical("Error: HTTP-Response {}", response.StatusCode);
+            return studienFileConverter.Convert(await response.Content.ReadAsStreamAsync());
+        logger.LogCritical("Error: HTTP-Response {}", response.StatusCode);
         return new List<Studie>();
     }
 }

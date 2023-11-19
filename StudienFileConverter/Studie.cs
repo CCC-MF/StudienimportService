@@ -141,7 +141,7 @@ public class Studie
         return row;
     }
 
-    private Cell DateCell(DateOnly? value)
+    private static Cell DateCell(DateOnly? value)
     {
         var cell = new Cell
         {
@@ -152,11 +152,13 @@ public class Studie
         return cell;
     }
 
-    private Cell StringCell(string value)
+    private static Cell StringCell(string value)
     {
-        var cell = new Cell();
-        cell.DataType = CellValues.String;
-        cell.CellValue = new CellValue(value);
+        var cell = new Cell
+        {
+            DataType = CellValues.String,
+            CellValue = new CellValue(value)
+        };
         return cell;
     }
 }

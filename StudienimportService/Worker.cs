@@ -18,9 +18,8 @@ public class Worker(ILogger<Worker> logger, IHostApplicationLifetime lifetime, I
                 break;
             }
 
-            var taskDelay = _configuration.GetSection("App")["TaskDelay"];
-            int delay;
-            if (null == taskDelay || ! Int32.TryParse(taskDelay, out delay))
+            var taskDelay = configuration.GetSection("App")["TaskDelay"];
+            if (null == taskDelay || ! Int32.TryParse(taskDelay, out var delay))
             {
                 logger.LogWarning("No TaskDelay given, using 7 days as default value.");
                 delay = 7;

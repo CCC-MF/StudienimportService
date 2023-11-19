@@ -24,6 +24,6 @@ public class StudienUploadService(ILogger logger, Uri uri)
         else
             logger.LogInformation("Studies updated in Onkostar: {}", await response.Content.ReadAsStringAsync());
 
-        stream.Dispose();
+        await stream.DisposeAsync();
     }
 }

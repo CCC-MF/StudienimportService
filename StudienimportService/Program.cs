@@ -5,7 +5,7 @@ const string serviceName = "Studienimport Service";
 
 if (args is { Length: 1 })
 {
-    string executablePath =
+    var executablePath =
         Path.Combine(AppContext.BaseDirectory, "StudienimportService.exe");
 
     switch (args[0])

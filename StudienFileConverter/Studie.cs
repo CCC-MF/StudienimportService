@@ -45,11 +45,11 @@ public class Studie
     [Name("Durchfuehrende Abteilung")] public string Abteilung { get; set; }
     [Name("ICD-10 Eingabe")] public string Icd10 { get; set; }
     [Name("Notiz")] public string Notiz { get; set; }
-    [Name("DKH-Typ"), Default("")] public string DKHTyp { get; set; }
-    [Name("Studienbeginn"), Default("")] public string Studienbeginn { get; set; }
-    [Name("Rekrutierungsstart"), Default("")] public string Rekrutierungsstart { get; set; }
-    [Name("Rekrutierungsende"), Default("")] public string Rekrutierungsende { get; set; }
-    [Name("Prospektiv/Retrospektiv"), Default("")] public string ProspektivRetrospektiv { get; set; }
+    [Name("DKH-Typ"), Default(""), Optional] public string DKHTyp { get; set; }
+    [Name("Studienbeginn"), Default(""), Optional] public string Studienbeginn { get; set; }
+    [Name("Rekrutierungsstart"), Default(""), Optional] public string Rekrutierungsstart { get; set; }
+    [Name("Rekrutierungsende"), Default(""), Optional] public string Rekrutierungsende { get; set; }
+    [Name("Prospektiv/Retrospektiv"), Default(""), Optional] public string ProspektivRetrospektiv { get; set; }
 
 
     public static Row HeaderRow()

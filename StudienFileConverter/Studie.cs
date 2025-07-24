@@ -45,6 +45,11 @@ public class Studie
     [Name("Durchfuehrende Abteilung")] public string Abteilung { get; set; }
     [Name("ICD-10 Eingabe")] public string Icd10 { get; set; }
     [Name("Notiz")] public string Notiz { get; set; }
+    [Name("DKH-Typ"), Default("")] public string DKHTyp { get; set; }
+    [Name("Studienbeginn"), Default("")] public string Studienbeginn { get; set; }
+    [Name("Rekrutierungsstart"), Default("")] public string Rekrutierungsstart { get; set; }
+    [Name("Rekrutierungsende"), Default("")] public string Rekrutierungsende { get; set; }
+    [Name("Prospektiv/Retrospektiv"), Default("")] public string ProspektivRetrospektiv { get; set; }
 
 
     public static Row HeaderRow()
@@ -84,7 +89,12 @@ public class Studie
             "GPOH Register",
             "Durchfuehrende Abteilung",
             "ICD-10 Eingabe",
-            "Notiz"
+            "Notiz",
+            "DKH-Typ",
+            "Studienbeginn",
+            "Rekrutierungsstart",
+            "Rekrutierungsende",
+            "Prospektiv/Retrospektiv",
         };
 
         var row = new Row();
@@ -138,6 +148,11 @@ public class Studie
         row.AppendChild(StringCell(Abteilung));
         row.AppendChild(StringCell(Icd10));
         row.AppendChild(StringCell(Notiz));
+        row.AppendChild(StringCell(DKHTyp));
+        row.AppendChild(StringCell(Studienbeginn));
+        row.AppendChild(StringCell(Rekrutierungsstart));
+        row.AppendChild(StringCell(Rekrutierungsende));
+        row.AppendChild(StringCell(ProspektivRetrospektiv));
         return row;
     }
 

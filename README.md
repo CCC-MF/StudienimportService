@@ -29,3 +29,10 @@ Die Datei `appsettings.Example.json` enthält ein Beispiel zur Konfiguration des
 ## Logging
 
 Fehler werden im LogLevel "Critical" geloggt, damit die entsprechende Information auf jeden Fall bemerkt wird.
+
+## Nutung als systemd Linux-Dienst
+
+Die Datei [`studienimport.service`](studienimport.service) enthält ein Beispiel zur Konfiguration des Dienstes als systemd-Dienst.
+Diese Datei muss in `/etc/systemd/system/` kopiert werden und anschließend mit `systemctl daemon-reload` und `systemctl enable studienimport.service` aktiviert werden.
+
+Im Beispiel wird davon ausgegangen, dass alle erforderlichen Dateien (*.dll und Settings-JSON) in das Verzeichnis `/opt/studienimport` kopiert wurden.

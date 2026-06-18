@@ -1,0 +1,11 @@
+[Unit]
+Description=Ein einfacher (Linux)-Dienst zum Import von Studien aus dem Studienserver des UKW
+
+[Service]
+Type=simple
+ExecStart=dotnet /opt/studienimport/StudienimportService.dll
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
